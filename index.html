@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title id="pageTitle">متجر GILTSH Store</title>
+    <!-- FontAwesome للأيقونات -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #0b0b0f;
+            color: #ffffff;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            padding: 20px 10px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 480px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        /* Header / Logo Area */
+        .header {
+            background: linear-gradient(rgba(0, 0, 0, 0.65), rgba(0, 0, 0, 0.85)), 
+                        url('https://images.unsplash.com/photo-1627856013091-fed6e4e30025?q=80&w=1000&auto=format&fit=crop') center/cover;
+            border-radius: 18px;
+            padding: 25px 15px 15px 15px;
+            text-align: center;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.6);
+            border: 1px solid #2a2a38;
+            position: relative;
+        }
+
+        .logo {
+            width: 170px;
+            max-width: 80%;
+            height: auto;
+            margin-bottom: 15px;
+            filter: drop-shadow(0 0 12px rgba(168, 85, 247, 0.6));
+        }
+
+        /* Quick Links Bar */
+        .quick-links {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            background: rgba(20, 20, 28, 0.85);
+            padding: 12px;
+            border-radius: 12px;
+            backdrop-filter: blur(5px);
+        }
+
+        .link-box {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+
+        .link-box:hover { transform: scale(1.03); }
+
+        .icon-circle {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            border: 2px solid #a855f7;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 18px;
+            color: #ffffff;
+            background: rgba(168, 85, 247, 0.15);
+            box-shadow: 0 0 10px rgba(168, 85, 247, 0.3);
+        }
+
+        .link-text { text-align: right; }
+        .link-title { font-weight: bold; font-size: 13px; }
+        .link-sub { font-size: 11px; color: #a855f7; }
+
+        /* User Profile / Login Card */
+        .login-card {
+            background-color: #161622;
+            border-radius: 15px;
+            padding: 12px 18px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border: 1px solid #2a2a38;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 10px;
+            background: #2b2b3d;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            border: 2px solid #a855f7;
+        }
+
+        .avatar img { width: 100%; height: 100%; object-fit: cover; }
+
+        .username-container {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .username-text {
+            font-weight: bold;
+            font-size: 16px;
+        }
+
+        .admin-badge {
+            font-size: 11px;
+            color: #10b981;
+            font-weight: bold;
+        }
+
+        .login-btn {
+            background: linear-gradient(135deg, #a855f7, #7e22ce);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: bold;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 4px 15px rgba(168, 85, 247, 0.3);
+        }
+
+        .logout-btn {
+            background: #ef4444;
+            box-shadow: 0 4px 15px rgba(239, 68, 68, 0.3);
+        }
+
+        /* Category Items / Store Buttons */
+        .category-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .category-btn {
+            background-color: #9333ea;
+            border-radius: 12px;
+            padding: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            cursor: pointer;
+            color: white;
+            transition: transform 0.2s ease, background-color 0.2s ease;
+            box-shadow: 0 4px 15px rgba(147, 51, 234, 0.25);
+        }
+
+        .category-btn:hover {
+            transform: translateY(-2px);
+            background-color: #7e22ce;
+        }
+
+        .cat-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .category-icon {
+            width: 45px;
+            height: 45px;
+            background: rgba(0, 0, 0, 0.25);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+        }
+
+        .category-title { font-size: 18px; font-weight: bold; }
+        .price-badge {
+            background: rgba(0,0,0,0.3);
+            padding: 4px 10px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: bold;
+        }
+
+        /* Admin Controls Block */
+        .admin-controls-box {
+            display: none;
+            background: #161622;
+            border: 2px solid #10b981;
+            border-radius: 15px;
+            padding: 15px;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .admin-controls-box.active {
+            display: flex;
+        }
+
+        .admin-title {
+            color: #10b981;
+            font-weight: bold;
+            font-size: 15px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .admin-btn {
+            background: #a855f7;
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        /* Modal Popup Windows */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(0,0,0,0.8);
+            z-index: 200;
+            justify-content: center;
+            align-items: center;
+            padding: 15px;
+        }
+
+        .modal-card {
+            background: #161622;
+            border: 2px solid #a855f7;
+            border-radius: 15px;
+            padding: 20px;
+            width: 100%;
+            max-width: 380px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .modal-title {
+            color: #a855f7;
+            font-size: 18px;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 5px;
+        }
+
+        .input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .input-group label {
+            font-size: 12px;
+            color: #ccc;
+        }
+
+        .input-group input, .input-group select {
+            background: #0b0b0f;
+            border: 1px solid #2a2a38;
+            color: white;
+            padding: 10px;
+            border-radius: 8px;
+            outline: none;
+        }
+
+        .submit-btn {
+            background: #a855f7;
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 5px;
+        }
+
+        .close-btn {
+            background: #333;
+            color: #aaa;
+            border: none;
+            padding: 8px;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        .delete-btn {
+            background: #ef4444;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 12px;
+        }
+
+        /* Toast notification */
+        .toast {
+            visibility: hidden;
+            min-width: 200px;
+            background-color: #a855f7;
+            color: #fff;
+            text-align: center;
+            border-radius: 8px;
+            padding: 12px;
+            position: fixed;
+            z-index: 300;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+        }
+
+        .toast.show {
+            visibility: visible;
+            animation: fadeIn 0.5s, fadeOut 0.5s 2.5s;
+        }
+
+        @keyframes fadeIn { from { bottom: 0; opacity: 0; } to { bottom: 30px; opacity: 1; } }
+        @keyframes fadeOut { from { bottom: 30px; opacity: 1; } to { bottom: 0; opacity: 0; } }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- Header Section -->
+        <div class="header">
+            <img src="file_000000002044824386b4f2dcfc241e0e.png" alt="GILTSH Logo" class="logo">
+            
+            <div class="quick-links">
+                <!-- IP Copy Link -->
+                <div class="link-box" onclick="copyIP()">
+                    <div class="icon-circle">
+                        <i class="fa-solid fa-gamepad"></i>
+                    </div>
+                    <div class="link-text">
+                        <div class="link-title" id="serverIpDisplay">Giltsh-MC.net</div>
+                        <div class="link-sub">إضغط للنسخ</div>
+                    </div>
+                </div>
+
+                <!-- Discord Link -->
+                <a id="discordAnchor" href="https://discord.gg" target="_blank" style="text-decoration: none; color: inherit;">
+                    <div class="link-box">
+                        <div class="link-text" style="text-align: left;">
+                            <div class="link-title">انضم للديسكورد</div>
+                            <div class="link-sub">إضغط للانضمام</div>
+                        </div>
+                        <div class="icon-circle">
+                            <i class="fa-brands fa-discord"></i>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        <!-- User Profile Bar -->
+        <div class="login-card">
+            <div class="user-info">
+                <div class="avatar">
+                    <img id="userAvatar" src="https://mc-heads.net/avatar/Steve" alt="Minecraft Avatar">
+                </div>
+                <div class="username-container">
+                    <span id="displayUsername" class="username-text">زائر</span>
+                    <span id="adminBadge" class="admin-badge" style="display:none;"><i class="fa-solid fa-shield-halved"></i> أدمن الموقع</span>
+                </div>
+            </div>
+            <button id="authBtn" class="login-btn" onclick="openLoginModal()">
+                <i class="fa-solid fa-right-to-bracket"></i> تسجيل الدخول
+            </button>
+        </div>
+
+        <!-- Admin Control Box (يظهر للأدمن فقط) -->
+        <div id="adminControlBox" class="admin-controls-box">
+            <div class="admin-title"><i class="fa-solid fa-sliders"></i> لوحة خيارات الأدمن</div>
+            <button class="admin-btn" onclick="openAddItemModal()"><i class="fa-solid fa-plus"></i> إضافة قسم / عنصر جديد</button>
+            <button class="admin-btn" style="background:#2563eb;" onclick="openEditSiteSettingsModal()"><i class="fa-solid fa-gear"></i> تعديل IP ورابط الديسكورد</button>
+        </div>
+
+        <!-- Category Items Section -->
+        <div class="category-list" id="categoryList"></div>
+    </div>
+
+    <!-- Modal 1: Unified Login Modal -->
+    <div id="loginModal" class="modal-overlay">
+        <div class="modal-card">
+            <div class="modal-title">تسجيل حساب جديد / الدخول</div>
+            <div class="input-group">
+                <label>اسم المستخدم (Minecraft Username):</label>
+                <input type="text" id="loginUsername" placeholder="مثال: DeRBT">
+            </div>
+            <div class="input-group">
+                <label>كلمة السر:</label>
+                <input type="password" id="loginPass1" placeholder="أدخل كلمة السر">
+            </div>
+            <div class="input-group">
+                <label>تأكيد كلمة السر:</label>
+                <input type="password" id="loginPass2" placeholder="أعد كتابة كلمة السر">
+            </div>
+            <button class="submit-btn" onclick="handleLogin()">تسجيل الدخول</button>
+            <button class="close-btn" onclick="closeModal('loginModal')">إلغاء</button>
+        </div>
+    </div>
+
+    <!-- Modal 2: Add New Item Modal -->
+    <div id="addItemModal" class="modal-overlay">
+        <div class="modal-card">
+            <div class="modal-title">إضافة عنصر / قسم للمتجر</div>
+            <div class="input-group">
+                <label>الاسم (العنوان):</label>
+                <input type="text" id="newItemName" placeholder="مثال: Rank MVP">
+            </div>
+            <div class="input-group">
+                <label>السعر / الوصف:</label>
+                <input type="text" id="newItemPrice" placeholder="مثال: $10 أو Keys">
+            </div>
+            <div class="input-group">
+                <label>الأيقونة:</label>
+                <select id="newItemIcon">
+                    <option value="fa-crown">تاج (Crown)</option>
+                    <option value="fa-key">مفتاح (Key)</option>
+                    <option value="fa-shield-halved">درع (Shield)</option>
+                    <option value="fa-gem">جوهرة (Gem)</option>
+                    <option value="fa-wand-magic-sparkles">عصا سحرية (Magic)</option>
+                </select>
+            </div>
+            <button class="submit-btn" style="background:#10b981;" onclick="saveNewItem()">إضافة إلى الموقع</button>
+            <button class="close-btn" onclick="closeModal('addItemModal')">إلغاء</button>
+        </div>
+    </div>
+
+    <!-- Modal 3: Edit Site Settings Modal -->
+    <div id="siteSettingsModal" class="modal-overlay">
+        <div class="modal-card">
+            <div class="modal-title">إعدادات الموقع المباشرة</div>
+            <div class="input-group">
+                <label>عنوان IP الخادم:</label>
+                <input type="text" id="settingIp" placeholder="Giltsh-MC.net">
+            </div>
+            <div class="input-group">
+                <label>رابط الديسكورد:</label>
+                <input type="text" id="settingDiscord" placeholder="https://discord.gg/yourlink">
+            </div>
+            <button class="submit-btn" style="background:#2563eb;" onclick="saveSiteSettings()">حفظ التعديلات</button>
+            <button class="close-btn" onclick="closeModal('siteSettingsModal')">إلغاء</button>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="toast">تم العملية بنجاح!</div>
+
+    <script>
+        // بيانات الأدمن الخاصة بك
+        const ADMIN_USER = "DeRBT";
+        const ADMIN_PASS = "qwedsaewitqwedsa500";
+
+        // استرجاع المستخدم الحالي وحالة الأدمن
+        let loggedUser = localStorage.getItem('giltsh_logged_user') || null;
+        let isAdmin = localStorage.getItem('giltsh_is_admin') === 'true';
+
+        // إعدادات الموقع
+        let siteSettings = JSON.parse(localStorage.getItem('giltsh_site_config')) || {
+            ip: 'Giltsh-MC.net',
+            discord: 'https://discord.gg'
+        };
+
+        // عناصر المتجر الافتراضية
+        const defaultItems = [
+            { id: 1, title: 'الرتب (Ranks)', price: 'VIP / MVP', icon: 'fa-crown' },
+            { id: 2, title: 'مفاتيح السرفايفل (Survival Keys)', price: 'Keys', icon: 'fa-key' }
+        ];
+
+        let storeItems = JSON.parse(localStorage.getItem('giltsh_store_items')) || defaultItems;
+
+        // عرض المتجر وتحديث الحالة
+        function renderApp() {
+            // تحديث الإعدادات
+            document.getElementById('serverIpDisplay').innerText = siteSettings.ip;
+            document.getElementById('discordAnchor').href = siteSettings.discord;
+
+            // تحديث أزرار وحالة المستخدم
+            const adminBox = document.getElementById('adminControlBox');
+            const adminBadge = document.getElementById('adminBadge');
+            const authBtn = document.getElementById('authBtn');
+
+            if (loggedUser) {
+                document.getElementById('displayUsername').innerText = loggedUser;
+                document.getElementById('userAvatar').src = `https://mc-heads.net/avatar/${loggedUser}`;
+                
+                authBtn.innerHTML = `<i class="fa-solid fa-right-from-bracket"></i> تسجيل الخروج`;
+                authBtn.className = "login-btn logout-btn";
+                authBtn.onclick = handleLogout;
+
+                if (isAdmin) {
+                    adminBadge.style.display = 'inline';
+                    adminBox.classList.add('active');
+                } else {
+                    adminBadge.style.display = 'none';
+                    adminBox.classList.remove('active');
+                }
+            } else {
+                document.getElementById('displayUsername').innerText = "زائر";
+                document.getElementById('userAvatar').src = "https://mc-heads.net/avatar/Steve";
+                adminBadge.style.display = 'none';
+                adminBox.classList.remove('active');
+
+                authBtn.innerHTML = `<i class="fa-solid fa-right-to-bracket"></i> تسجيل الدخول`;
+                authBtn.className = "login-btn";
+                authBtn.onclick = openLoginModal;
+            }
+
+            // عرض عناصر المتجر
+            const list = document.getElementById('categoryList');
+            list.innerHTML = '';
+
+            storeItems.forEach((item, index) => {
+                const itemDiv = document.createElement('div');
+                itemDiv.className = 'category-btn';
+                itemDiv.innerHTML = `
+                    <div class="cat-info">
+                        <div class="category-icon">
+                            <i class="fa-solid ${item.icon}"></i>
+                        </div>
+                        <div class="category-title">${item.title}</div>
+                    </div>
+                    <div style="display:flex; align-items:center; gap:10px;">
+                        <span class="price-badge">${item.price}</span>
+                        ${(loggedUser && isAdmin) ? `<button class="delete-btn" onclick="deleteItem(${index})"><i class="fa-solid fa-trash"></i></button>` : ''}
+                    </div>
+                `;
+                list.appendChild(itemDiv);
+            });
+        }
+
+        /* --- تسجيل الدخول / الخروج --- */
+        function openLoginModal() {
+            document.getElementById('loginModal').style.display = 'flex';
+        }
+
+        function handleLogin() {
+            const user = document.getElementById('loginUsername').value.trim();
+            const pass1 = document.getElementById('loginPass1').value;
+            const pass2 = document.getElementById('loginPass2').value;
+
+            if(!user || !pass1 || !pass2) {
+                showToast("يرجى ملء كافة الخانات!");
+                return;
+            }
+
+            if(pass1 !== pass2) {
+                showToast("كلمتا السر غير متطابقتين!");
+                return;
+            }
+
+            // التحقق إذا كان المسجل هو الأدمن
+            if(user === ADMIN_USER && pass1 === ADMIN_PASS) {
+                isAdmin = true;
+                loggedUser = ADMIN_USER;
+                localStorage.setItem('giltsh_is_admin', 'true');
+                showToast("أهلاً بك DeRBT! تم تسجيل الدخول كـ أدمن");
+            } else {
+                isAdmin = false;
+                loggedUser = user;
+                localStorage.setItem('giltsh_is_admin', 'false');
+                showToast(`تم تسجيل الدخول بنجاح! أهلاً ${user}`);
+            }
+
+            localStorage.setItem('giltsh_logged_user', loggedUser);
+            
+            // تفريغ المدخلات
+            document.getElementById('loginUsername').value = '';
+            document.getElementById('loginPass1').value = '';
+            document.getElementById('loginPass2').value = '';
+
+            closeModal('loginModal');
+            renderApp();
+        }
+
+        function handleLogout() {
+            localStorage.removeItem('giltsh_logged_user');
+            localStorage.removeItem('giltsh_is_admin');
+            loggedUser = null;
+            isAdmin = false;
+            renderApp();
+            showToast("تم تسجيل الخروج!");
+        }
+
+        /* --- خيارات وتعديلات الأدمن --- */
+        function openAddItemModal() {
+            document.getElementById('addItemModal').style.display = 'flex';
+        }
+
+        function saveNewItem() {
+            const name = document.getElementById('newItemName').value.trim();
+            const price = document.getElementById('newItemPrice').value.trim();
+            const icon = document.getElementById('newItemIcon').value;
+
+            if(!name || !price) {
+                showToast("يرجى إدخال الاسم والسعر!");
+                return;
+            }
+
+            storeItems.push({ id: Date.now(), title: name, price: price, icon: icon });
+            localStorage.setItem('giltsh_store_items', JSON.stringify(storeItems));
+
+            document.getElementById('newItemName').value = '';
+            document.getElementById('newItemPrice').value = '';
+
+            closeModal('addItemModal');
+            renderApp();
+            showToast("تم إضافة القسم/العنصر الجديد بنجاح!");
+        }
+
+        function deleteItem(index) {
+            storeItems.splice(index, 1);
+            localStorage.setItem('giltsh_store_items', JSON.stringify(storeItems));
+            renderApp();
+            showToast("تم الحذف بنجاح!");
+        }
+
+        function openEditSiteSettingsModal() {
+            document.getElementById('settingIp').value = siteSettings.ip;
+            document.getElementById('settingDiscord').value = siteSettings.discord;
+            document.getElementById('siteSettingsModal').style.display = 'flex';
+        }
+
+        function saveSiteSettings() {
+            const newIp = document.getElementById('settingIp').value.trim();
+            const newDiscord = document.getElementById('settingDiscord').value.trim();
+
+            if(newIp) siteSettings.ip = newIp;
+            if(newDiscord) siteSettings.discord = newDiscord;
+
+            localStorage.setItem('giltsh_site_config', JSON.stringify(siteSettings));
+            closeModal('siteSettingsModal');
+            renderApp();
+            showToast("تم حفظ إعدادات الموقع!");
+        }
+
+        /* --- وظائف عامة --- */
+        function copyIP() {
+            navigator.clipboard.writeText(siteSettings.ip).then(() => {
+                showToast("تم نسخ IP الخادم بنجاح!");
+            });
+        }
+
+        function closeModal(id) {
+            document.getElementById(id).style.display = 'none';
+        }
+
+        function showToast(msg) {
+            const toast = document.getElementById("toast");
+            toast.innerText = msg;
+            toast.className = "toast show";
+            setTimeout(() => { toast.className = toast.className.replace("show", ""); }, 2500);
+        }
+
+        // تشغيل التطبيق
+        renderApp();
+    </script>
+</body>
+</html>
